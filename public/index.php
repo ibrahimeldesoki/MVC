@@ -3,4 +3,3 @@
 require_once '../app/init.php';
 
 $app = new app();
-$controller = new Controller();
