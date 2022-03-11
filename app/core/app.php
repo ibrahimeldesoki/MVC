@@ -17,7 +17,7 @@ class app{
         $this->checkMethod($controller , $this->url['1']);
         $this->params = $this->url ? array_values($this->url) : [];
 
-        call_user_func_array([$this->controller,$this->method],$this->params);
+        call_user_func_array([$controller,$this->method],$this->params);
     }
 
     public function parseUrl()
