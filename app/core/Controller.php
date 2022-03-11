@@ -11,4 +11,9 @@ class Controller{
         require_once '../app/models/'.$this->model . '.php';
         return new $this->model();
     }
+
+    public  function view($view,$data=[])
+    {
+        require_once '../app/views/'.$view.'.html';
+    }
 }
