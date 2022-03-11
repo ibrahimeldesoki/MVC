@@ -1,10 +1,10 @@
 <?php
 
-class User
+class User extends Illuminate\Database\Eloquent\Model
 {
     public $name;
-    public  function __construct(string $name = '')
-    {
-        return $this;
-    }
+    protected $fillable=[
+        'username',
+        'email'
+    ];
 }
