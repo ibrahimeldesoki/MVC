@@ -1,6 +1,10 @@
 <?php
 
-class contact extends Controller
+namespace App\Controllers;
+
+use Core\Controller;
+
+class Contact extends Controller
 {
     public function index()
     {
