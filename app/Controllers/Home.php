@@ -22,9 +22,10 @@ class Home extends Controller
 
     public function create($username = '', $email = '')
     {
-        $this->user->create([
-            'username' => $username,
-            'email' => $email
-        ]);
+        echo "POST";
+//        $this->user->create([
+//            'username' => $username,
+//            'email' => $email
+//        ]);
     }
 }

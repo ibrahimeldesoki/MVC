@@ -19,8 +19,12 @@ class App
         $this->url = $this->parseUrl();
 
         list($controller, $method, $params) = $this->router->match('/' . $this->url);
-
-        call_user_func_array([new $controller, $method], $params);
+        if ($controller instanceof \Closure) {
+            $callback = $controller;
+        } else {
+            $callback = [new $controller, $method];
+        }
+        call_user_func_array($callback, $params);
     }
 
     public function parseUrl()
