@@ -2,13 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Services\ContactService;
 use Core\Controller;
 
 class Contact extends Controller
 {
-    public function index()
+    public function index($ali, ContactService $contactService)
     {
-        echo "contact/test";
+        echo $ali;
+        echo $contactService->getContactName();
     }
 
     public function phone()

@@ -4,11 +4,6 @@ namespace Core;
 
 class Controller
 {
-//    private $model ;
-    public function __construct()
-    {
-    }
-
     public function model(string $model)
     {
         $this->model = $model;
