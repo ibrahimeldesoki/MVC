@@ -1,5 +1,9 @@
 <?php
 
+use App\Controllers\Contact;
+use App\Controllers\Home;
+use App\Controllers\Test;
+use App\Services\ClintService;
 use Core\App;
 use Core\Container;
 use Core\Router;
@@ -7,17 +11,18 @@ use Core\Router;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $router = new Router();
-$router->get('/test/{name}', [\App\Controllers\Home::class, 'index']);
-$router->get('/ahmed', [\App\Controllers\Test::class, 'index']);
+
+$router->get('/test/{name}', [Home::class, 'index']);
+$router->get('/ahmed', [Test::class, 'index']);
 $router->post('/test/{name}', function ($name) {
     echo $name;
 });
-$router->get('/contact/{ali}', [\App\Controllers\Contact::class, 'index']);
-$router->post('/contact/create', [\App\Controllers\Contact::class, 'index']);
+$router->get('/contact/{ali}', [Contact::class, 'index']);
+$router->post('/contact/create', [Contact::class, 'index']);
 
 $container = new Container();
-$container->set(\App\Services\ClintService::class, function () {
-    return new \App\Services\ClintService('google.com');
+$container->set(ClintService::class, function () {
+    return new ClintService('google.com');
 });
 $app = new App($router, $container);
 

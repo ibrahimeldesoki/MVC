@@ -20,7 +20,7 @@ class App
     {
         $this->url = $this->parseUrl();
 
-        list($controller, $method, $params) = $this->router->match('/' . $this->url);
+        list($controller, $method, $params) = $this->router->match($this->url);
 
         if ($controller instanceof \Closure) {
             $callback = $controller;
@@ -34,7 +34,7 @@ class App
 
     public function parseUrl()
     {
-        return $_GET['url'] ?? '/';
+        return $_SERVER['REQUEST_URI'] ?? '/';
     }
 
     private function resolveControllerParams($controller)
