@@ -4,9 +4,7 @@ namespace Core;
 
 class App
 {
-    /**
-     * @var Router
-     */
+
     private $router;
     private $container;
 

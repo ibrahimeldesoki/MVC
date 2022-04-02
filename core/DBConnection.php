@@ -4,15 +4,14 @@ namespace Core;
 
 class DBConnection
 {
-    public function __construct()
+    public function getPDO()
     {
         $host = 'localhost';
         $userName = 'root';
         $password = 'root';
         $DBName = 'mvc';
         try {
-            $connection = new \PDO("mysql:host=$host;dbname=$DBName", $userName, $password);
-            return $connection;
+            return new \PDO("mysql:host=$host;dbname=$DBName", $userName, $password);
         } catch (\PDOException $PDOException) {
             echo $PDOException->getMessage();
         }

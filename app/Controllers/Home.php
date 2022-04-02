@@ -2,21 +2,22 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use Core\Controller;
 
 class Home extends Controller
 {
     protected $user;
 
-    public function __construct()
+    public function __construct(User $user)
     {
-        $this->user = $this->model('User');
+        $this->user = $user;
     }
 
     public function index($name = '')
     {
-        $user = $this->user;
-        $user->name = $name;
+        $user = $this->user->create(['username' => "ali", 'email' => 'aldfk@dfsd.com']);
+        
         $this->view('home/index', ['name' => $user->name]);
     }
 

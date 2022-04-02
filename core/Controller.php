@@ -7,7 +7,7 @@ class Controller
     public function model(string $model)
     {
         $this->model = $model;
-        require_once '../app/models/' . $this->model . '.php';
+        require_once '../app/Models/' . $this->model . '.php';
         return new $this->model();
     }
 
