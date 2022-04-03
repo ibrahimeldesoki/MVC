@@ -4,15 +4,26 @@ namespace Core;
 
 class DBConnection
 {
+	private $host;
+	private $port;
+	private $user;
+	private $pass;
+	private $db;
+
+	public function __construct($host, $port, $user, $pass, $db)
+	{
+
+		$this->host = $host;
+		$this->port = $port;
+		$this->user = $user;
+		$this->pass = $pass;
+		$this->db = $db;
+	}
+
     public function getPDO()
     {
-        $host = '127.0.0.1';
-        $userName = 'root';
-        $password = 'root';
-        $port = '3399';
-        $DBName = 'mvc';
         try {
-            return new \PDO("mysql:host=$host;port=$port;dbname=$DBName", $userName, $password);
+			return new \PDO("mysql:host={$this->host};port={$this->port};dbname={$this->db}", $this->user, $this->pass);
         } catch (\PDOException $PDOException) {
             dd($PDOException->getMessage());
         }
