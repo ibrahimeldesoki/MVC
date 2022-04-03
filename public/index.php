@@ -24,16 +24,8 @@ $router->post('/test/{name}', function ($name) {
 $router->get('/contact/{ali}', [Contact::class, 'index']);
 $router->post('/contact/create', [Contact::class, 'index']);
 
-$container = new Container();
-$container->set(ClintService::class, function () {
-    return new ClintService('google.com');
-});
-$container->set(DBConnection::class, function () {
-    return new DBConnection($_ENV['DB_HOST'], $_ENV['DB_PORT'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
-});
-
-$app = new App($router, $container);
-
+$app = new App($router, new Container());
+$app->registerProvider(\App\Providers\DatabaseProvider::class);
 $app->run();
 
 

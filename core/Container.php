@@ -29,7 +29,9 @@ class Container
             return new $key;
         }
         foreach ($reflection->getConstructor()->getParameters() as $parameter) {
-            $dependencies[] = $this->get($parameter->getType()->getName());
+			if($parameter->getType() !== null) {
+				$dependencies[] = $this->get($parameter->getType()->getName());
+			}
         }
 
         return new $key(...$dependencies);
