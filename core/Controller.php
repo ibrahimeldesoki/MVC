@@ -13,6 +13,6 @@ class Controller
 
     public function view($view, $data = [])
     {
-        require_once '../app/views/' . $view . '.html';
+        require_once __DIR__.'/../app/views/' . $view . '.html';
     }
 }

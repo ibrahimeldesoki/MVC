@@ -8,7 +8,8 @@
   "require": {
     "illuminate/database": "7.*",
     "symfony/var-dumper": "^5.4",
-    "nesbot/carbon": "^2.57"
+    "nesbot/carbon": "^2.57",
+    "ext-pdo": "*"
   },
   "config": {
     "allow-plugins": {

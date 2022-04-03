@@ -6,14 +6,15 @@ class DBConnection
 {
     public function getPDO()
     {
-        $host = 'localhost';
+        $host = '127.0.0.1';
         $userName = 'root';
         $password = 'root';
+        $port = '3399';
         $DBName = 'mvc';
         try {
-            return new \PDO("mysql:host=$host;dbname=$DBName", $userName, $password);
+            return new \PDO("mysql:host=$host;port=$port;dbname=$DBName", $userName, $password);
         } catch (\PDOException $PDOException) {
-            echo $PDOException->getMessage();
+            dd($PDOException->getMessage());
         }
     }
 }
