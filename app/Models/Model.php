@@ -7,18 +7,13 @@ use PDO;
 
 abstract class Model
 {
-	private DBConnection $DBConnection;
+	private DBConnection $dbConnection;
 
 	protected $table = null;
 
-	public function __construct(DBConnection $DBConnection)
+	public function __construct(DBConnection $dbConnection)
 	{
-		$this->DBConnection = $DBConnection;
-	}
-
-	public function getPDO()
-	{
-		return $this->DBConnection->getPDO();
+		$this->dbConnection = $dbConnection;
 	}
 
 	public function getTable()
@@ -44,22 +39,21 @@ abstract class Model
 
 		$query = sprintf('INSERT INTO %s (%s) VALUES (%s)', $this->getTable(), implode(', ', $cols), implode(', ', $placeholders));
 
-		$pdo = $this->getPDO();
-		$stmt = $pdo->prepare($query);
+		$stmt = $this->dbConnection->getPdo()->prepare($query);
 
 		foreach ($cols as $index => $col) {
 			$stmt->bindValue(':'.$col, $values[$index]);
 		}
 		$stmt->execute();
 
-		return $this->find($pdo->lastInsertId());
+		return $this->find($this->dbConnection->getPdo()->lastInsertId());
 	}
 
 	public function find(string $id)
 	{
-		$pdo = $this->getPDO();
 		$query = sprintf('SELECT * FROM %s WHERE id = :id', $this->getTable());
-		$stmt = $pdo->prepare($query);
+
+		$stmt = $this->dbConnection->getPdo()->prepare($query);
 		$stmt->bindValue(':id', $id);
 		$stmt->execute();
 

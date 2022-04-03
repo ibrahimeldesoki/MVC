@@ -7,26 +7,25 @@ use Core\Controller;
 
 class Home extends Controller
 {
-    protected $user;
+	protected $user;
 
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
+	public function __construct(User $user)
+	{
+		$this->user = $user;
+	}
 
-    public function index($name = '')
-    {
-        $user = $this->user->find(1);
+	public function index($name = '')
+	{
+		$user = $this->user->find(1);
 
-        $this->view('home/index', ['name' => $user['username']]);
-    }
+		$this->view('home/index', ['name' => $user['username']]);
+	}
 
-    public function create($username = '', $email = '')
-    {
-        echo "POST";
-//        $this->user->create([
-//            'username' => $username,
-//            'email' => $email
-//        ]);
-    }
+	public function create($username = '', $email = '')
+	{
+		$this->user->create([
+			'username' => $username,
+			'email' => $email,
+		]);
+	}
 }
