@@ -7,52 +7,53 @@ use PDO;
 
 abstract class Model
 {
-    private DBConnection $DBConnection;
+	private DBConnection $DBConnection;
 
 	protected $table = null;
 
-    public function __construct(DBConnection $DBConnection)
-    {
-        $this->DBConnection = $DBConnection;
-    }
+	public function __construct(DBConnection $DBConnection)
+	{
+		$this->DBConnection = $DBConnection;
+	}
 
-    public function getPDO()
-    {
-        return $this->DBConnection->getPDO();
-    }
+	public function getPDO()
+	{
+		return $this->DBConnection->getPDO();
+	}
 
-    public function getTable()
-    {
-		if($this->table) {
+	public function getTable()
+	{
+		if ($this->table) {
 			return $this->table;
 		}
 
 		$ref = new \ReflectionClass(get_called_class());
-		return sprintf('%ss', strtolower($ref->getShortName()));
-    }
 
-    public function create(array $array)
-    {
-        $table = $this->getTable();
-        //  get cols
+		return sprintf('%ss', strtolower($ref->getShortName()));
+	}
+
+	public function create(array $array)
+	{
 		$cols = array_keys($array);
+
 		$placeholders = array_map(function ($col) {
-			return ':' . $col;
+			return ':'.$col;
 		}, $cols);
-        // get values
+
 		$values = array_values($array);
-        // insert
-		$query = sprintf('INSERT INTO %s (%s) VALUES (%s)', $table, implode(', ', $cols), implode(', ', $placeholders));
+
+		$query = sprintf('INSERT INTO %s (%s) VALUES (%s)', $this->getTable(), implode(', ', $cols), implode(', ', $placeholders));
+
 		$pdo = $this->getPDO();
 		$stmt = $pdo->prepare($query);
-		foreach($cols as $index => $col) {
-			$stmt->bindValue(':' . $col, $values[$index]);
+
+		foreach ($cols as $index => $col) {
+			$stmt->bindValue(':'.$col, $values[$index]);
 		}
 		$stmt->execute();
 
-        // find by id
 		return $this->find($pdo->lastInsertId());
-    }
+	}
 
 	public function find(string $id)
 	{
