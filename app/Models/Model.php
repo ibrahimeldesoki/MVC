@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Core\DBConnection;
+use Core\QueryBuilder;
 use PDO;
 
 abstract class Model
@@ -51,10 +52,13 @@ abstract class Model
 
 	public function find(string $id)
 	{
-		$query = sprintf('SELECT * FROM %s WHERE id = :id', $this->getTable());
-
+        $query = new QueryBuilder();
+        $query = $query->table('users')
+            ->select('*')
+            ->where('id', '=', $id)
+            ->toSql();
 		$stmt = $this->dbConnection->getPdo()->prepare($query);
-		$stmt->bindValue(':id', $id);
+//		$stmt->bindValue(':id', $id);
 		$stmt->execute();
 
 		return $stmt->fetch(PDO::FETCH_ASSOC);

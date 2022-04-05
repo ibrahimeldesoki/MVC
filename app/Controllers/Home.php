@@ -17,16 +17,7 @@ class Home extends Controller
 
 	public function index($name = '')
 	{
-        $users = new QueryBuilder();
-        $users->table('users')
-            ->select('*')
-            ->where('username', '=', 'ibra')
-            ->where('id', '=', 1)
-            ->toSql();
-
-        dd($users);
-		$user = $this->user->find(1);
-
+        $user = $this->user->find(1);
 		$this->view('home/index', ['name' => $user['username']]);
 	}
 

@@ -66,6 +66,8 @@ class QueryBuilder
     public function toSql()
     {
         $this->wheresStatementsProcess();
-        return dd("SELECT " . implode(', ', $this->cols) . " FROM " . $this->table . $this->whereStatements);
+        $query = "SELECT " . implode(', ', $this->cols) . " FROM " . $this->table . $this->whereStatements;
+
+        return $query;
     }
 }
