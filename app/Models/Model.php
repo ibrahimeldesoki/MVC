@@ -57,10 +57,21 @@ abstract class Model
             ->select('*')
             ->where('id', '=', $id)
             ->toSql();
-		$stmt = $this->dbConnection->getPdo()->prepare($query);
-//		$stmt->bindValue(':id', $id);
+		$stmt = $this->dbConnection->getPdo()->prepare($query);// todo use placeholder to avoid sql injection
 		$stmt->execute();
 
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+
+    public function get()
+    {
+        $query = new QueryBuilder();
+        $query = $query->table('users')
+            ->select('*')
+            ->toSql();
+        $stmt = $this->dbConnection->getPdo()->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
