@@ -25,12 +25,11 @@ class Router
 
     public function match($path)
     {
-        $REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
+        $REQUEST_METHOD = $_SERVER['REQUSET_METHOD'] ?? 'GET';
         foreach ($this->routes as $route => $methods) {
             $route = str_replace('/', '\/', $route);
             preg_match('/^' . $route . '$/', $path, $parmas);
             if (count($parmas) > 0) {
-
                 if (isset($methods[$REQUEST_METHOD])) {
                     $action = $methods[$REQUEST_METHOD];
                     array_shift($parmas);
