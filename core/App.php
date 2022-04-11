@@ -67,7 +67,7 @@ class App
 			if ($parameter->getType()) {
 				$dependencies[] = $this->container->get($parameter->getType()->getName());
 			} else {
-				$dependencies[] = array_shift($params);
+				$dependencies[] = $dependencies[$parameter->getName()] ?? null;
 			}
 		}
 
