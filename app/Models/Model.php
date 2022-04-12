@@ -58,6 +58,7 @@ abstract class Model
             ->where('id', '=', $id)
             ->toSql();
 		$stmt = $this->dbConnection->getPdo()->prepare($query);// todo use placeholder to avoid sql injection
+		$stmt->execute();
 
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}

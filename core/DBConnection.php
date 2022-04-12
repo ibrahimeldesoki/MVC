@@ -19,8 +19,6 @@ class DBConnection
 		$this->user = $user;
 		$this->pass = $pass;
 		$this->db = $db;
-
-		$this->connect();
 	}
 
 	public function connect()
